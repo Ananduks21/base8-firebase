@@ -106,6 +106,30 @@ export default function SinglePageApp() {
             </Card>
           ))}
         </div>
+
+        <div className="bg-card p-8 md:p-12 rounded-lg shadow-md">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold tracking-tight">Discover Your Dream Home</h2>
+              <p className="text-muted-foreground text-lg">
+                At Base8, we're passionate about helping you create spaces that truly reflect your personality and lifestyle. From statement pieces to everyday essentials, find everything you need to build a home you'll love.
+              </p>
+              <p className="text-muted-foreground text-lg">
+                Explore our collections and let us inspire your next home transformation.
+              </p>
+            </div>
+            <div>
+               <Image 
+                src="https://picsum.photos/seed/modernliving/800/600" 
+                alt="Stylish modern living room" 
+                width={800} 
+                height={600} 
+                className="rounded-lg object-cover shadow-lg"
+                data-ai-hint="modern livingroom"
+              />
+            </div>
+          </div>
+        </div>
         
         <div className="bg-card p-8 md:p-12 rounded-lg shadow-md">
           <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -321,3 +345,4 @@ export default function SinglePageApp() {
     </div>
   );
 }
+
