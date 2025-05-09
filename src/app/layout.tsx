@@ -6,8 +6,8 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
-  title: 'Base8 Catalog',
-  description: 'Your one-stop shop for high-quality furniture and mattresses.',
+  title: 'Base8 - Your Home Furnishing Destination',
+  description: 'Your one-stop shop for high-quality furniture and mattresses. Explore our catalog, learn about us, and get in touch, all on one page!',
 };
 
 export default function RootLayout({

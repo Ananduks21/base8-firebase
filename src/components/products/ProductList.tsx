@@ -5,16 +5,20 @@ import React, { useState, useMemo } from 'react';
 import ProductCard from './ProductCard';
 import ProductFilter from './ProductFilter';
 import type { Product, FilterState } from '@/lib/types';
-import { sampleProducts } from '@/lib/placeholder-data'; // Assuming this is the full list
+import { sampleProducts } from '@/lib/placeholder-data'; 
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Filter as FilterIcon } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export default function ProductList() {
+interface ProductListProps {
+  onProductSelect: (product: Product) => void;
+}
+
+export default function ProductList({ onProductSelect }: ProductListProps) {
   const [filters, setFilters] = useState<FilterState>({
     category: 'All',
-    priceRange: [0, 2000], // Default max price, adjust as needed
+    priceRange: [0, 2000], 
     searchTerm: '',
   });
 
@@ -49,11 +53,6 @@ export default function ProductList() {
             <ScrollArea className="flex-grow">
               <ProductFilter onFilterChange={handleFilterChange} initialFilters={filters} />
             </ScrollArea>
-            {/* Optional: SheetFooter for Apply/Clear buttons if needed later 
-            <SheetFooter className="p-6 pt-4 border-t">
-              <Button type="button" className="w-full">Apply Filters</Button>
-            </SheetFooter>
-            */}
           </SheetContent>
         </Sheet>
       </div>
@@ -61,7 +60,7 @@ export default function ProductList() {
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} product={product} onViewDetails={onProductSelect} />
           ))}
         </div>
       ) : (
