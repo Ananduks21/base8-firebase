@@ -5,7 +5,7 @@ import Logo from './Logo';
 
 const navItems = [
   { href: '#home', label: 'Home' },
-  { href: '#products', label: 'Products' },
+  // { href: '#products', label: 'Products' }, // Removed as #products section is deleted
   { href: '#about', label: 'About Us' },
   { href: '#contact', label: 'Contact' },
 ];

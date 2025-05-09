@@ -13,7 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Users, Target, Eye, Phone, Mail, MapPin } from 'lucide-react';
 
-import ProductList from '@/components/products/ProductList';
+// ProductList import removed as the section using it is removed.
 import ProductDetailModal from '@/components/products/ProductDetailModal';
 
 
@@ -72,8 +72,9 @@ export default function SinglePageApp() {
               <p className="text-lg sm:text-xl text-neutral-200">
                 Your one-stop shop for high-quality furniture and mattresses designed to make your home feel cozy, stylish, and comfortable.
               </p>
+              {/* The explore our catalog button now links to #about as #products section is removed */}
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <Link href="#products">Explore Our Catalog</Link>
+                <Link href="#about">Explore Our Offerings</Link> 
               </Button>
             </div>
             <div className="md:order-first">
@@ -177,14 +178,16 @@ export default function SinglePageApp() {
         </div>
       </section>
 
-      {/* Products Section */}
+      {/* Products Section - REMOVED */}
+      {/* 
       <section id="products" className="space-y-8 pt-8">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Our Products</h1>
         <p className="text-lg text-muted-foreground">
           Browse our curated selection of high-quality furniture and mattresses.
         </p>
         <ProductList onProductSelect={handleProductSelect} />
-      </section>
+      </section> 
+      */}
 
       {/* About Section */}
       <section id="about" className="space-y-12 pt-8">
