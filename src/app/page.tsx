@@ -58,20 +58,26 @@ export default function SinglePageApp() {
     <div className="space-y-16">
       {/* Home Section */}
       <section id="home" className="space-y-12 pt-8">
-        <div className="relative bg-gradient-to-r from-secondary via-background to-secondary/70 rounded-lg p-8 md:p-12 shadow-lg overflow-hidden">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="relative z-10 space-y-6 text-left">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground">
+        <div
+          className="relative rounded-lg p-8 md:p-12 shadow-lg overflow-hidden bg-cover bg-center bg-no-repeat min-h-[70vh] flex items-center"
+          style={{ backgroundImage: "url('https://picsum.photos/seed/herobackground/1920/1080')" }}
+          data-ai-hint="hero background"
+        >
+          <div className="absolute inset-0 bg-black bg-opacity-60 z-0"></div> {/* Overlay for text readability */}
+          
+          <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center w-full">
+            <div className="space-y-6 text-left">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white">
                 Welcome to <span className="text-primary">Base8</span>
               </h1>
-              <p className="text-lg sm:text-xl text-muted-foreground">
+              <p className="text-lg sm:text-xl text-neutral-200">
                 Your one-stop shop for high-quality furniture and mattresses designed to make your home feel cozy, stylish, and comfortable.
               </p>
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 <Link href="#products">Explore Our Catalog</Link>
               </Button>
             </div>
-            <div className="relative z-0 md:order-first">
+            <div className="md:order-first">
               <Image
                 src="https://picsum.photos/seed/herointerior/800/600"
                 alt="Comfortable and stylish home interior"
