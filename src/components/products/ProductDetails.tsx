@@ -2,8 +2,6 @@ import Image from 'next/image';
 import type { Product } from '@/lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ShoppingCart, Heart } from 'lucide-react';
 
 interface ProductDetailsProps {
   product: Product;
@@ -57,15 +55,6 @@ export default function ProductDetailsDisplay({ product }: ProductDetailsProps) 
               </ul>
             </div>
           )}
-        </div>
-
-        <div className="flex flex-col sm:flex-row gap-3 pt-4">
-          <Button size="lg" className="flex-1">
-            <ShoppingCart className="mr-2 h-5 w-5" /> Add to Cart
-          </Button>
-          <Button variant="outline" size="lg" className="flex-1">
-            <Heart className="mr-2 h-5 w-5" /> Add to Wishlist
-          </Button>
         </div>
       </div>
     </div>

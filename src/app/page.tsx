@@ -15,7 +15,6 @@ import { Label } from '@/components/ui/label';
 import { Users, Target, Eye, Phone, Mail, MapPin } from 'lucide-react';
 
 import ProductList from '@/components/products/ProductList';
-import ProductForm from '@/components/admin/ProductForm';
 import ProductDetailModal from '@/components/products/ProductDetailModal';
 
 
@@ -310,15 +309,6 @@ export default function SinglePageApp() {
             </CardContent>
           </Card>
         </div>
-      </section>
-
-      {/* Admin Products Section */}
-      <section id="admin-products" className="space-y-8 pt-8">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Manage Products</h1>
-        <p className="text-lg text-muted-foreground">
-          Add new products to the catalog and leverage AI to generate compelling titles and descriptions.
-        </p>
-        <ProductForm />
       </section>
 
       {selectedProduct && (

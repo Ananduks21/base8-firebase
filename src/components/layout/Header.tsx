@@ -10,7 +10,6 @@ const navItems = [
   { href: '#products', label: 'Products' },
   { href: '#about', label: 'About Us' },
   { href: '#contact', label: 'Contact' },
-  { href: '#admin-products', label: 'Admin' },
 ];
 
 export default function Header() {
