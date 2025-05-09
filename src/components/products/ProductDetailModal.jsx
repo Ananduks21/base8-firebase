@@ -1,3 +1,4 @@
+
 'use client';
 
 import ProductDetailsDisplay from '@/components/products/ProductDetails';
@@ -9,10 +10,10 @@ export default function ProductDetailModal({ product, isOpen, onClose }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-3xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="sr-only">{product.name}</DialogTitle>
-          <DialogDescription className="sr-only">{product.description}</DialogDescription>
+      <DialogContent className="sm:max-w-3xl w-[calc(100%-1rem)] sm:w-full max-h-[90vh] overflow-y-auto p-4 md:p-6">
+        <DialogHeader className="sr-only"> {/* Keep header for accessibility but hide visually if content has title */}
+          <DialogTitle>{product.name}</DialogTitle>
+          <DialogDescription>{product.description}</DialogDescription>
         </DialogHeader>
         <ProductDetailsDisplay product={product} />
         {/* 
@@ -24,3 +25,4 @@ export default function ProductDetailModal({ product, isOpen, onClose }) {
     </Dialog>
   );
 }
+
