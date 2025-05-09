@@ -10,6 +10,7 @@ const navItems = [
   { href: '/about', label: 'About Us' },
   { href: '/contact', label: 'Contact' },
   { href: '/admin/products', label: 'Admin' },
+  { href: '/all-headings', label: 'All Headings' },
 ];
 
 export default function Header() {
