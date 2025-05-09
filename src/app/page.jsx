@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -13,7 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Users, Target, Eye, Phone, Mail, MapPin } from 'lucide-react';
 
-// ProductList import removed as the section using it is removed.
+import ProductList from '@/components/products/ProductList';
 import ProductDetailModal from '@/components/products/ProductDetailModal';
 
 
@@ -31,13 +30,11 @@ export default function SinglePageApp() {
     setSelectedProduct(null);
   };
 
-  const featuredProducts = sampleProducts.slice(0, 4);
-
   // Smooth scroll for hash links
   useEffect(() => {
     const handleHashLinkClick = (event) => {
-      const target = event.target;
-      if (target.tagName === 'A' && target.hash) {
+      const target = event.target.closest('a'); // Ensure we get the anchor tag
+      if (target && target.hash) {
         const element = document.querySelector(target.hash);
         if (element) {
           event.preventDefault();
@@ -59,88 +56,54 @@ export default function SinglePageApp() {
       <section id="home" className="space-y-12 pt-8">
         <div
           className="relative rounded-lg p-8 md:p-12 shadow-lg overflow-hidden bg-cover bg-center bg-no-repeat min-h-[70vh] flex items-center"
-          style={{ backgroundImage: "url('https://picsum.photos/seed/herobackground/1920/1080')" }}
-          data-ai-hint="hero background"
+          style={{ backgroundImage: "url('https://picsum.photos/seed/luxuryhero/1920/1080')" }}
+          data-ai-hint="luxury abstract background"
         >
           <div className="absolute inset-0 bg-black bg-opacity-60 z-0"></div> {/* Overlay for text readability */}
           
           <div className="relative z-10 grid md:grid-cols-2 gap-8 items-center w-full">
             <div className="space-y-6 text-left">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white">
-                Welcome to <span className="text-primary">Base8</span>
+                Discover Elegance at <span className="text-primary">Base8</span>
               </h1>
               <p className="text-lg sm:text-xl text-neutral-200">
-                Your one-stop shop for high-quality furniture and mattresses designed to make your home feel cozy, stylish, and comfortable.
+                Exquisite furniture and mattresses, curated for a home that defines luxury and comfort.
               </p>
-              {/* The explore our catalog button now links to #about as #products section is removed */}
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                <Link href="#about">Explore Our Offerings</Link> 
+                <Link href="#products">Explore Our Catalog</Link> 
               </Button>
             </div>
             <div className="md:order-first">
               <Image
-                src="https://picsum.photos/seed/herointerior/800/600"
-                alt="Comfortable and stylish home interior"
+                src="https://picsum.photos/seed/luxuryinterior/800/600"
+                alt="Luxurious and stylish home interior"
                 width={800}
                 height={600}
                 className="rounded-lg object-cover shadow-xl aspect-video"
-                data-ai-hint="home interior"
+                data-ai-hint="luxury interior"
                 priority
               />
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredProducts.map((product) => (
-             <Card key={product.id} className="flex flex-col overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-              <CardHeader className="p-0">
-                <div className="aspect-w-16 aspect-h-9 relative">
-                  <Image
-                    src={product.imageUrl}
-                    alt={product.name}
-                    width={600}
-                    height={400}
-                    className="object-cover w-full h-48 sm:h-56"
-                    data-ai-hint={product.aiHint || "furniture item"}
-                  />
-                </div>
-              </CardHeader>
-              <CardContent className="p-4 flex-grow">
-                <CardTitle className="text-lg font-semibold mb-1 truncate" title={product.name}>
-                  {product.name}
-                </CardTitle>
-                <p className="text-sm text-muted-foreground line-clamp-2 mb-2" title={product.description}>
-                  {product.description}
-                </p>
-                <p className="text-xl font-bold text-primary">
-                  ${product.price.toFixed(2)}
-                </p>
-              </CardContent>
-              <div className="p-4 pt-0">
-                <Button onClick={() => handleProductSelect(product)} className="w-full" variant="outline">
-                  View Details
-                </Button>
-              </div>
-            </Card>
-          ))}
-        </div>
+        {/* Featured product cards removed from here */}
 
         <div className="bg-card p-8 md:p-12 rounded-lg shadow-md">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight">Discover Your Dream Home</h2>
+              <h2 className="text-3xl font-bold tracking-tight">Craft Your Dream Sanctuary</h2>
               <p className="text-muted-foreground text-lg">
-                At Base8, we're passionate about helping you create spaces that truly reflect your personality and lifestyle. From statement pieces to everyday essentials, find everything you need to build a home you'll love.
+                At Base8, we are dedicated to transforming spaces into personal sanctuaries. Discover pieces that resonate with your unique style and elevate your everyday living.
               </p>
               <p className="text-muted-foreground text-lg">
-                Explore our collections and let us inspire your next home transformation.
+                Our collections are a testament to timeless design and unparalleled craftsmanship.
               </p>
             </div>
             <div>
                <Image 
                 src="https://picsum.photos/seed/modernliving/800/600" 
-                alt="Stylish modern living room" 
+                alt="Stylish modern living room with a luxurious feel" 
                 width={800} 
                 height={600} 
                 className="rounded-lg object-cover shadow-lg"
@@ -155,7 +118,7 @@ export default function SinglePageApp() {
             <div>
                <Image 
                 src="https://picsum.photos/seed/homeinterior/800/600" 
-                alt="Comfortable living room" 
+                alt="Comfortable and elegant living room" 
                 width={800} 
                 height={600} 
                 className="rounded-lg object-cover shadow-lg"
@@ -163,12 +126,12 @@ export default function SinglePageApp() {
               />
             </div>
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tight">Furnish Your Space with Elegance</h2>
+              <h2 className="text-3xl font-bold tracking-tight">Furnish with Distinction</h2>
               <p className="text-muted-foreground text-lg">
-                At Base8, we believe that your home should be a sanctuary. That's why we offer a wide selection of furniture and mattresses that combine quality craftsmanship with timeless design. 
+                Base8 offers an exclusive selection of furniture and mattresses, where quality meets artistry. We believe your home should be an embodiment of comfort and sophistication.
               </p>
               <p className="text-muted-foreground text-lg">
-                Discover pieces that reflect your personal style and create a comfortable, inviting atmosphere for you and your loved ones.
+                Explore distinctive pieces that promise to create an inviting and luxurious atmosphere for you and your discerning guests.
               </p>
               <Button asChild variant="outline">
                 <Link href="#about">Learn More About Us</Link>
@@ -178,16 +141,14 @@ export default function SinglePageApp() {
         </div>
       </section>
 
-      {/* Products Section - REMOVED */}
-      {/* 
+      {/* Products Section */}
       <section id="products" className="space-y-8 pt-8">
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Our Products</h1>
-        <p className="text-lg text-muted-foreground">
-          Browse our curated selection of high-quality furniture and mattresses.
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl text-center">Our Exquisite Collection</h1>
+        <p className="text-xl text-muted-foreground text-center max-w-3xl mx-auto">
+          Browse our curated selection of high-quality furniture and mattresses, designed for luxurious living.
         </p>
         <ProductList onProductSelect={handleProductSelect} />
       </section> 
-      */}
 
       {/* About Section */}
       <section id="about" className="space-y-12 pt-8">

@@ -1,10 +1,8 @@
-
 'use client';
 
 import ProductDetailsDisplay from '@/components/products/ProductDetails';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose, DialogDescription } from '@/components/ui/dialog';
-import { Button } from '../ui/button';
-import { X } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+// Button and X icon import removed as custom close button is removed.
 
 export default function ProductDetailModal({ product, isOpen, onClose }) {
   if (!isOpen) return null;
@@ -17,11 +15,11 @@ export default function ProductDetailModal({ product, isOpen, onClose }) {
           <DialogDescription className="sr-only">{product.description}</DialogDescription>
         </DialogHeader>
         <ProductDetailsDisplay product={product} />
-        <DialogClose asChild className="absolute right-4 top-4">
-            <Button variant="ghost" size="icon" onClick={onClose} aria-label="Close product details">
-                 <X className="h-4 w-4" />
-            </Button>
-        </DialogClose>
+        {/* 
+          The explicit DialogClose button has been removed.
+          The DialogContent component from shadcn/ui includes a default close button (X icon)
+          which will be controlled by the `open` and `onOpenChange` props of the Dialog.
+        */}
       </DialogContent>
     </Dialog>
   );
