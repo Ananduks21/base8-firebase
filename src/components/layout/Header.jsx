@@ -31,14 +31,34 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
-        {/* Logo */}
-        <div className="flex-shrink-0">
+        {/* Element 1: Hamburger (Mobile Only) / Logo (Desktop Only) */}
+        {/* Mobile Hamburger Button */}
+        <div className="md:hidden flex-shrink-0">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 text-foreground/70 hover:text-foreground focus:outline-none"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label="Toggle navigation menu"
+          >
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
+          </button>
+        </div>
+        {/* Desktop Logo */}
+        <div className="hidden md:block flex-shrink-0">
           <Link href="#home" className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
             <Logo className="h-8 w-auto" />
           </Link>
         </div>
         
-        {/* Desktop Navigation centered */}
+        {/* Element 2: Logo (Mobile Only, Centered) / Nav (Desktop Only, Centered) */}
+        {/* Mobile Logo */}
+        <div className="md:hidden flex-grow flex justify-center">
+          <Link href="#home" className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
+            <Logo className="h-8 w-auto" />
+          </Link>
+        </div>
+        {/* Desktop Navigation */}
         <nav className="hidden md:flex flex-grow items-center justify-center space-x-8 text-sm font-medium px-4">
           {navItems.map((item) => (
             <Link
@@ -50,26 +70,16 @@ export default function Header() {
             </Link>
           ))}
         </nav>
-        
-        {/* Right side: Mobile Hamburger OR Desktop Spacer */}
-        <div className="flex-shrink-0 flex items-center ml-auto md:ml-0">
-          <div className="md:hidden"> {/* Mobile Hamburger Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-foreground/70 hover:text-foreground focus:outline-none"
-              aria-expanded={isMobileMenuOpen}
-              aria-controls="mobile-menu"
-              aria-label="Toggle navigation menu"
-            >
-              {isMobileMenuOpen ? <X className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
-            </button>
+
+        {/* Element 3: Spacer (Mobile, to balance Hamburger) / Spacer (Desktop, to balance Logo for Nav centering) */}
+        <div className="flex-shrink-0">
+          {/* Mobile Spacer - matches width of hamburger button (p-2 + icon w-6 = 2.5rem = w-10) */}
+          <div className="md:hidden w-10">
+            {/* This space ensures the mobile logo is truly centered relative to the hamburger icon */}
           </div>
-          {/* Desktop Spacer: This div provides width to balance the logo for true nav centering.
-              The logo (h-8 w-auto, with SVG dimensions 100x36) renders at ~89px width.
-              This spacer is set to match that width.
-           */}
+          {/* Desktop Spacer - matches width of desktop logo (~89px) */}
           <div className="hidden md:block w-[89px]">
-            {/* This space is primarily for balancing. Future desktop icons could go here. */}
+            {/* This space ensures the desktop navigation is truly centered relative to the logo */}
           </div>
         </div>
       </div>
