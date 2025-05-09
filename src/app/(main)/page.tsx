@@ -11,10 +11,9 @@ export default function HomePage() {
     <div className="space-y-12">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-secondary via-background to-secondary/70 rounded-lg p-8 md:p-16 text-center overflow-hidden shadow-lg">
-        {/* Optional: Decorative background image or pattern */}
-        {/* <div className="absolute inset-0 opacity-10">
-           <Image src="/path/to/decorative-bg.svg" layout="fill" objectFit="cover" alt="Decorative background" />
-        </div> */}
+        <div className="absolute inset-0 opacity-10">
+           {/* Decorative background image */}
+        </div>
         <div className="relative z-10">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-foreground mb-6">
             Welcome to <span className="text-primary">Base8</span>
@@ -22,7 +21,7 @@ export default function HomePage() {
           <p className="max-w-2xl mx-auto text-lg sm:text-xl text-muted-foreground mb-8">
             Your one-stop shop for high-quality furniture and mattresses designed to make your home feel cozy, stylish, and comfortable.
           </p>
-          <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+          <Button asChild size="lg">
             <Link href="/products">Explore Our Catalog</Link>
           </Button>
         </div>
