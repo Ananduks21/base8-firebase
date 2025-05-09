@@ -1,9 +1,7 @@
 
 import Link from 'next/link';
 import Logo from './Logo';
-import { Button } from '@/components/ui/button';
-import { ShoppingBag, Menu } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
+// Removed Button, ShoppingBag, Menu, Sheet, SheetContent, SheetTrigger, SheetClose imports as they are no longer used.
 
 const navItems = [
   { href: '#home', label: 'Home' },
@@ -32,34 +30,9 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon" aria-label="Shopping Cart">
-            <ShoppingBag className="h-5 w-5" />
-          </Button>
-          
-          <Sheet>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon" aria-label="Open menu">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <nav className="flex flex-col space-y-4 mt-8">
-                {navItems.map((item) => (
-                  <SheetClose asChild key={item.label}>
-                    <Link
-                      href={item.href}
-                      className="text-lg font-medium transition-colors hover:text-primary"
-                    >
-                      {item.label}
-                    </Link>
-                  </SheetClose>
-                ))}
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
+        {/* The div containing ShoppingBag icon and mobile Menu icon (Sheet) has been removed */}
       </div>
     </header>
   );
 }
+
