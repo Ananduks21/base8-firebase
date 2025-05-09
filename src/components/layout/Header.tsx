@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Logo from './Logo';
 import { Button } from '@/components/ui/button';
-import { ShoppingBag, UserCircle, Menu } from 'lucide-react';
+import { ShoppingBag, Menu } from 'lucide-react';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 
 const navItems = [
@@ -33,9 +33,6 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="icon" aria-label="User Account">
-            <UserCircle className="h-5 w-5" />
-          </Button>
           <Button variant="ghost" size="icon" aria-label="Shopping Cart">
             <ShoppingBag className="h-5 w-5" />
           </Button>
