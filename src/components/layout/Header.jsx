@@ -32,14 +32,14 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 max-w-screen-2xl items-center">
         {/* Logo */}
-        <div className="flex-none">
+        <div className="flex-shrink-0">
           <Link href="#home" className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
             <Logo className="h-8 w-auto" />
           </Link>
         </div>
         
         {/* Desktop Navigation centered */}
-        <nav className="hidden md:flex flex-grow items-center justify-center space-x-8 text-sm font-medium">
+        <nav className="hidden md:flex flex-grow items-center justify-center space-x-8 text-sm font-medium px-4">
           {navItems.map((item) => (
             <Link
               key={item.label}
@@ -51,8 +51,8 @@ export default function Header() {
           ))}
         </nav>
         
-        {/* Right side: Mobile Hamburger OR Desktop Spacer (empty) */}
-        <div className="flex-none flex items-center ml-auto md:ml-0"> {/* ml-auto for mobile to push button to right if nav is not flex-grow on mobile */}
+        {/* Right side: Mobile Hamburger OR Desktop Spacer */}
+        <div className="flex-shrink-0 flex items-center ml-auto md:ml-0">
           <div className="md:hidden"> {/* Mobile Hamburger Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -64,9 +64,12 @@ export default function Header() {
               {isMobileMenuOpen ? <X className="h-6 w-6" /> : <MenuIcon className="h-6 w-6" />}
             </button>
           </div>
-          <div className="hidden md:block w-auto"> 
-            {/* This space is kept for desktop to maintain the flex-none nature of the rightmost element if needed. */}
-            {/* For the current layout (Logo | Nav (flex-grow) | This), this being empty and w-auto is fine. */}
+          {/* Desktop Spacer: This div provides width to balance the logo for true nav centering.
+              The logo (h-8 w-auto, with SVG dimensions 100x36) renders at ~89px width.
+              This spacer is set to match that width.
+           */}
+          <div className="hidden md:block w-[89px]">
+            {/* This space is primarily for balancing. Future desktop icons could go here. */}
           </div>
         </div>
       </div>
