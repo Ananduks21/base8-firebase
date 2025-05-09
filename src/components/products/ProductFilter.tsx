@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -6,7 +7,6 @@ import type { FilterState } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 import { Slider } from "@/components/ui/slider";
 
 interface ProductFilterProps {
@@ -23,11 +23,10 @@ export default function ProductFilter({ onFilterChange, initialFilters }: Produc
   const [localMinPrice, setLocalMinPrice] = useState(initialFilters.priceRange[0].toString());
   const [localMaxPrice, setLocalMaxPrice] = useState(initialFilters.priceRange[1].toString());
   
-  // Debounce mechanism
   useEffect(() => {
     const handler = setTimeout(() => {
        onFilterChange({ category, priceRange, searchTerm });
-    }, 500); // Apply filters after 500ms of inactivity
+    }, 500);
     return () => clearTimeout(handler);
   }, [category, priceRange, searchTerm, onFilterChange]);
 
@@ -60,11 +59,10 @@ export default function ProductFilter({ onFilterChange, initialFilters }: Produc
   };
 
   return (
-    <div className="mb-8 p-6 bg-card rounded-lg shadow">
-      <h3 className="text-xl font-semibold mb-4">Filter Products</h3>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className="p-6">
+      <div className="space-y-8"> {/* Changed from grid to space-y for single column */}
         <div>
-          <Label htmlFor="category-select" className="mb-2 block">Category</Label>
+          <Label htmlFor="category-select" className="mb-2 block text-sm font-medium">Category</Label>
           <Select value={category} onValueChange={setCategory}>
             <SelectTrigger id="category-select">
               <SelectValue placeholder="Select category" />
@@ -79,20 +77,17 @@ export default function ProductFilter({ onFilterChange, initialFilters }: Produc
           </Select>
         </div>
         
-        <div className="md:col-span-2">
-          <Label className="mb-2 block">Price Range</Label>
-          <div className="mb-4">
-             <Slider
-              defaultValue={[0, MAX_PRICE]}
-              min={0}
-              max={MAX_PRICE}
-              step={10}
-              value={priceRange}
-              onValueChange={(value) => handleSliderChange(value as [number, number])}
-              className="my-4"
-            />
-          </div>
-          <div className="flex items-center space-x-4">
+        <div>
+          <Label className="mb-2 block text-sm font-medium">Price Range ({`$${priceRange[0]} - $${priceRange[1]}`})</Label>
+          <Slider
+            min={0}
+            max={MAX_PRICE}
+            step={10}
+            value={priceRange}
+            onValueChange={(value) => handleSliderChange(value as [number, number])}
+            className="my-4"
+          />
+          <div className="flex items-center space-x-3">
             <div className="flex-1">
               <Label htmlFor="min-price" className="sr-only">Min Price</Label>
               <Input
@@ -103,9 +98,10 @@ export default function ProductFilter({ onFilterChange, initialFilters }: Produc
                 onChange={handleMinPriceInputChange}
                 min="0"
                 max={MAX_PRICE}
+                className="w-full"
               />
             </div>
-            <span>-</span>
+            <span className="text-muted-foreground">-</span>
             <div className="flex-1">
               <Label htmlFor="max-price" className="sr-only">Max Price</Label>
               <Input
@@ -116,13 +112,14 @@ export default function ProductFilter({ onFilterChange, initialFilters }: Produc
                 onChange={handleMaxPriceInputChange}
                 min="0"
                 max={MAX_PRICE}
+                className="w-full"
               />
             </div>
           </div>
         </div>
         
-        <div className="md:col-span-3">
-          <Label htmlFor="search-term" className="mb-2 block">Search</Label>
+        <div>
+          <Label htmlFor="search-term" className="mb-2 block text-sm font-medium">Search</Label>
           <Input
             id="search-term"
             type="text"
