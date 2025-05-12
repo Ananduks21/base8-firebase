@@ -41,16 +41,6 @@ export default function ProductDetailsDisplay({ product }) {
             <h3 className="font-semibold text-base md:text-lg mb-1">Care Instructions</h3>
             <p className="text-xs md:text-sm text-muted-foreground">{product.careInstructions}</p>
           </div>
-          {product.features && product.features.length > 0 && (
-            <div>
-              <h3 className="font-semibold text-base md:text-lg mb-2">Key Features</h3>
-              <ul className="list-disc list-inside space-y-1 text-xs md:text-sm text-muted-foreground">
-                {product.features.map((feature, index) => (
-                  <li key={index}>{feature}</li>
-                ))}
-              </ul>
-            </div>
-          )}
         </div>
       </div>
     </div>
