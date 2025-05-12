@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect } from 'react'; // Removed useState
+import { useEffect } from 'react'; 
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -12,20 +12,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Users, Target, Eye, Phone, Mail, MapPin } from 'lucide-react';
 
-// Removed sampleProducts import
-// Removed ProductList import
-// Removed ProductDetailModal import
-
 
 export default function SinglePageApp() {
-  // Removed state for selectedProduct and isModalOpen
-  // Removed handleProductSelect and closeModal functions
 
   // Smooth scroll for hash links on the home page
   useEffect(() => {
     const handleHashLinkClick = (event) => {
-      const target = event.target.closest('a'); // Ensure we get the anchor tag
-      // Only handle clicks on links starting with '#' within the current page
+      const target = event.target.closest('a'); 
       if (target && target.hash && target.pathname === window.location.pathname && target.hash !== '#') {
         const element = document.querySelector(target.hash);
         if (element) {
@@ -61,7 +54,6 @@ export default function SinglePageApp() {
               <p className="text-lg sm:text-xl text-neutral-200">
                 Exquisite furniture and mattresses, curated for a home that defines luxury and comfort.
               </p>
-              {/* Updated button to link to the new products page */}
               <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
                 <Link href="/products">Explore Our Catalog</Link> 
               </Button>
@@ -79,8 +71,6 @@ export default function SinglePageApp() {
             </div>
           </div>
         </div>
-
-        {/* Removed product list section */}
 
         <div className="bg-card p-8 md:p-12 rounded-lg shadow-md">
           <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -126,7 +116,6 @@ export default function SinglePageApp() {
               <p className="text-muted-foreground text-lg">
                 Explore distinctive pieces that promise to create an inviting and luxurious atmosphere for you and your discerning guests.
               </p>
-              {/* Updated About Us link to use hash */}
               <Button asChild variant="outline">
                 <Link href="#about">Learn More About Us</Link>
               </Button>
@@ -134,9 +123,6 @@ export default function SinglePageApp() {
           </div>
         </div>
       </section>
-
-      {/* Products Section - Removed from here */}
-      {/* <section id="products" className="space-y-8 pt-8"> ... </section> */}
 
       {/* About Section */}
       <section id="about" className="space-y-12 pt-8">
@@ -216,12 +202,11 @@ export default function SinglePageApp() {
           <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
             Follow us on social media for exclusive offers, new arrivals, and inspiration for furnishing your space.
           </p>
-          {/* Add social media links if needed */}
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="space-y-12 pt-8">
+      <section id="contact" className="space-y-12 pt-8 pb-16"> {/* Added pb-16 for more space */}
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">Get in Touch</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -229,12 +214,12 @@ export default function SinglePageApp() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-start">
-          <Card className="shadow-lg">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 items-stretch"> {/* Changed items-start to items-stretch */}
+          <Card className="shadow-lg flex flex-col h-full"> {/* Added flex flex-col and h-full */}
             <CardHeader>
               <CardTitle className="text-2xl">Contact Information</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-6 flex-grow"> {/* Added flex-grow */}
               <div className="flex items-start space-x-4">
                 <Phone className="w-6 h-6 text-primary mt-1 shrink-0" />
                 <div>
@@ -277,36 +262,33 @@ export default function SinglePageApp() {
             </CardContent>
           </Card>
 
-          <Card className="shadow-lg">
+          <Card className="shadow-lg flex flex-col h-full"> {/* Added flex flex-col and h-full */}
             <CardHeader>
               <CardTitle className="text-2xl">Send Us a Message</CardTitle>
               <CardDescription>Use this form for general inquiries.</CardDescription> 
             </CardHeader>
-            <CardContent>
-              {/* Simplified form for general contact */}
-              <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); alert("Message sent (simulated)!"); }}>
-                <div>
-                  <Label htmlFor="ssp-name">Full Name</Label>
-                  <Input id="ssp-name" type="text" placeholder="John Doe" required />
+            <CardContent className="flex-grow"> {/* Added flex-grow */}
+              <form className="space-y-6 flex flex-col h-full" onSubmit={(e) => { e.preventDefault(); alert("Message sent (simulated)!"); }}>
+                <div className="flex-grow space-y-6"> {/* Wrapper for form fields to allow button to stick to bottom */}
+                  <div>
+                    <Label htmlFor="ssp-name">Full Name</Label>
+                    <Input id="ssp-name" type="text" placeholder="John Doe" required />
+                  </div>
+                  <div>
+                    <Label htmlFor="ssp-email">Email Address</Label>
+                    <Input id="ssp-email" type="email" placeholder="john.doe@example.com" required />
+                  </div>
+                  <div>
+                    <Label htmlFor="ssp-message">Message</Label>
+                    <Textarea id="ssp-message" placeholder="Your message here..." rows={3} required />
+                  </div>
                 </div>
-                <div>
-                  <Label htmlFor="ssp-email">Email Address</Label>
-                  <Input id="ssp-email" type="email" placeholder="john.doe@example.com" required />
-                </div>
-                {/* Removed Subject field */}
-                <div>
-                  <Label htmlFor="ssp-message">Message</Label>
-                  <Textarea id="ssp-message" placeholder="Your message here..." rows={5} required />
-                </div>
-                <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">Send Message</Button>
+                <Button type="submit" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground mt-auto">Send Message</Button> {/* Added mt-auto */}
               </form>
             </CardContent>
           </Card>
         </div>
       </section>
-
-      {/* Modal logic removed from here */}
-      {/* {selectedProduct && ( ... )} */}
     </div>
   );
 }
