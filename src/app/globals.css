@@ -8,79 +8,81 @@ body {
 
 @layer base {
   :root {
-    --background: 150 20% 98%; /* Very Light Mint/Off-White */
-    --foreground: 150 30% 10%; /* Very Dark Green/Near Black */
-    --card: 150 25% 96%; /* Light Mint for Cards */
-    --card-foreground: 150 30% 10%;
-    --popover: 150 25% 96%;
-    --popover-foreground: 150 30% 10%;
-    --primary: 150 50% 35%; /* Rich Velvet Green */
-    --primary-foreground: 150 10% 95%; /* Light text on primary */
-    --secondary: 150 30% 88%; /* Light Muted Green/Grey */
-    --secondary-foreground: 150 40% 25%; /* Darker Green on secondary */
-    --muted: 150 25% 92%; /* Muted Light Green */
-    --muted-foreground: 150 20% 45%; /* Mid Green-Grey */
+    --background: 159 15% 98%; /* Very light, slightly desaturated mint */
+    --foreground: 159 30% 10%; /* Very dark, slightly bluer green */
+    --card: 159 20% 97%; /* Light mint for Cards */
+    --card-foreground: 159 30% 10%;
+    --popover: 159 20% 97%;
+    --popover-foreground: 159 30% 10%;
+    --primary: 159 73% 22%; /* #0f6347 - Dark Velvet Green */
+    --primary-foreground: 159 10% 95%; /* Light text on primary */
+    --secondary: 159 30% 85%; /* Lighter, muted version of primary's hue */
+    --secondary-foreground: 159 40% 25%; /* Darker green for text on secondary */
+    --muted: 159 25% 92%; /* Muted light green */
+    --muted-foreground: 159 20% 45%; /* Mid green-grey */
     --accent: 45 70% 50%; /* Gold/Brass */
-    --accent-foreground: 150 30% 10%; /* Dark text on accent */
+    --accent-foreground: 20 90% 15%; /* Dark brown text on accent */
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 150 25% 85%; /* Light Mint Border */
-    --input: 150 25% 90%; /* Light Mint Input */
-    --ring: 150 50% 45%; /* Slightly Lighter Velvet Green for Ring */
+    --border: 159 20% 88%; /* Light mint border, slightly softer */
+    --input: 159 20% 92%; /* Light mint input, slightly softer */
+    --ring: 159 70% 30%; /* Slightly brighter, more saturated focus ring from primary */
+    
     --chart-1: 45 70% 50%; /* Gold/Brass */
-    --chart-2: 150 50% 45%; /* Velvet Green */
-    --chart-3: 160 40% 50%; /* Muted Teal/Green */
-    --chart-4: 0 0% 60%; /* Medium Grey */
-    --chart-5: 140 30% 65%; /* Muted Soft Green */
-    --radius: 0.75rem; /* Increased radius */
+    --chart-2: 159 73% 22%; /* Dark Velvet Green (Primary) */
+    --chart-3: 159 45% 55%; /* Mid-tone Green */
+    --chart-4: 0 0% 60%;   /* Medium Grey */
+    --chart-5: 159 60% 40%; /* Another shade of Green */
+    --radius: 0.75rem;
 
     /* Sidebar specific colors using the new theme */
-    --sidebar-background: 150 25% 96%; /* Light Mint */
-    --sidebar-foreground: 150 30% 10%; /* Dark Green */
-    --sidebar-primary: 150 50% 35%; /* Velvet Green */
-    --sidebar-primary-foreground: 150 10% 95%; /* Light text */
-    --sidebar-accent: 150 30% 90%; /* Lighter Mint for hover */
-    --sidebar-accent-foreground: 150 40% 20%; /* Darker Green */
-    --sidebar-border: 150 20% 80%; /* Subtle Mint Border */
-    --sidebar-ring: 150 50% 45%; /* Velvet Green for Ring */
+    --sidebar-background: 159 20% 97%; /* Light Mint (same as card) */
+    --sidebar-foreground: 159 30% 10%; /* Dark Green (same as main foreground) */
+    --sidebar-primary: 159 73% 22%;    /* Velvet Green (main primary) */
+    --sidebar-primary-foreground: 159 10% 95%; /* Light text (main primary foreground) */
+    --sidebar-accent: 159 30% 90%;     /* Lighter Mint for hover */
+    --sidebar-accent-foreground: 159 40% 20%; /* Darker Green on hover */
+    --sidebar-border: 159 20% 85%;     /* Subtle Mint Border */
+    --sidebar-ring: 159 70% 30%;       /* Main ring color */
   }
 
   .dark {
-    --background: 150 30% 5%; /* Very Dark Green */
-    --foreground: 150 15% 95%; /* Near White/Very Light Mint */
-    --card: 150 25% 8%; /* Slightly Lighter Dark Green for Cards */
-    --card-foreground: 150 15% 95%;
-    --popover: 150 25% 8%;
-    --popover-foreground: 150 15% 95%;
-    --primary: 150 60% 45%; /* Velvet Green (can be slightly brighter in dark mode) */
-    --primary-foreground: 150 20% 98%; /* Very light text on primary */
-    --secondary: 150 20% 15%; /* Dark Muted Green */
-    --secondary-foreground: 150 10% 85%; /* Light Green-Grey */
-    --muted: 150 20% 20%; /* Mid-Dark Muted Green */
-    --muted-foreground: 150 10% 60%; /* Mid Green-Grey */
+    --background: 159 20% 8%; /* Very dark, slightly desaturated green */
+    --foreground: 159 10% 90%; /* Near White/Very Light Mint */
+    --card: 159 20% 12%; /* Slightly Lighter Dark Green for Cards */
+    --card-foreground: 159 10% 90%;
+    --popover: 159 20% 12%;
+    --popover-foreground: 159 10% 90%;
+    --primary: 159 60% 35%; /* Brighter version of #0f6347 for dark mode, still rich */
+    --primary-foreground: 159 15% 96%; /* Very light text on primary */
+    --secondary: 159 20% 18%; /* Dark Muted Green */
+    --secondary-foreground: 159 10% 80%; /* Light Green-Grey */
+    --muted: 159 15% 22%; /* Mid-Dark Muted Green */
+    --muted-foreground: 159 10% 65%; /* Mid Green-Grey */
     --accent: 50 80% 60%; /* Brighter Gold/Brass */
-    --accent-foreground: 150 30% 5%; /* Very dark text on accent */
-    --destructive: 0 70% 50%; /* Deep Red */
+    --accent-foreground: 25 80% 10%; /* Very dark (almost black) on accent */
+    --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
-    --border: 150 20% 25%; /* Dark Green Border */
-    --input: 150 20% 18%; /* Dark Green Input Background */
-    --ring: 150 60% 55%; /* Lighter Velvet Green for Ring in dark mode */
-    --chart-1: 50 70% 60%; /* Goldish */
-    --chart-2: 150 50% 55%; /* Velvet Green variant */
-    --chart-3: 160 30% 70%; /* Muted Light Green/Teal */
-    --chart-4: 0 0% 70%; /* Silver/Light Grey */
-    --chart-5: 140 40% 50%; /* Muted Green */
+    --border: 159 15% 28%; /* Dark Green Border */
+    --input: 159 15% 20%; /* Dark Green Input Background */
+    --ring: 159 60% 45%; /* Lighter, more saturated green for Ring in dark mode */
+
+    --chart-1: 50 80% 60%;  /* Brighter Gold/Brass */
+    --chart-2: 159 60% 35%; /* Velvet Green (Primary Dark) */
+    --chart-3: 159 40% 65%; /* Lighter Mid-tone Green */
+    --chart-4: 0 0% 70%;   /* Silver/Light Grey */
+    --chart-5: 159 50% 50%; /* Another shade of Green */
     /* --radius is same as light theme */
 
     /* Sidebar specific colors for dark theme */
-    --sidebar-background: 150 25% 8%; /* Dark Card Color (Greenish) */
-    --sidebar-foreground: 150 15% 95%; /* Light Foreground */
-    --sidebar-primary: 150 60% 45%; /* Velvet Green */
-    --sidebar-primary-foreground: 150 20% 98%; /* Light for Velvet Green contrast */
-    --sidebar-accent: 150 20% 15%; /* Dark Muted Green for hover */
-    --sidebar-accent-foreground: 150 10% 90%; /* Light Green-Grey */
-    --sidebar-border: 150 20% 12%; /* Darker Green Border */
-    --sidebar-ring: 150 60% 55%; /* Lighter Velvet Green for Ring */
+    --sidebar-background: 159 20% 12%; /* Dark Card Color (Greenish, same as card) */
+    --sidebar-foreground: 159 10% 90%; /* Light Foreground (same as main foreground) */
+    --sidebar-primary: 159 60% 35%;    /* Velvet Green (dark mode primary) */
+    --sidebar-primary-foreground: 159 15% 96%; /* Light for Velvet Green contrast */
+    --sidebar-accent: 159 20% 18%;     /* Dark Muted Green for hover (same as dark secondary) */
+    --sidebar-accent-foreground: 159 10% 85%; /* Light Green-Grey on hover */
+    --sidebar-border: 159 15% 25%;     /* Darker Green Border */
+    --sidebar-ring: 159 60% 45%;       /* Dark mode ring color */
   }
 }
 
