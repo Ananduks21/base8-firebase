@@ -29,7 +29,7 @@ export default function ProductDetailModal({ product, isOpen, onClose }) {
           setIsEnquiryFormOpen(false); // Ensure enquiry form also closes if main closes
         }
       }}>
-        <DialogContent className="sm:max-w-3xl w-[calc(100%-1rem)] sm:w-full max-h-[90vh] overflow-y-auto p-4 md:p-6">
+        <DialogContent className="rounded-lg sm:max-w-3xl w-[calc(100%-1rem)] sm:w-full max-h-[90vh] overflow-y-auto p-4 md:p-6">
           <DialogHeader className="sr-only">
             <DialogTitle>{product.name}</DialogTitle>
             <DialogDescription>{product.description}</DialogDescription>

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useEffect } from 'react'; // Removed useState
 
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'; // Added CardDescription
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -280,7 +280,6 @@ export default function SinglePageApp() {
           <Card className="shadow-lg">
             <CardHeader>
               <CardTitle className="text-2xl">Send Us a Message</CardTitle>
-              {/* The CardDescription usage was causing the error */}
               <CardDescription>Use this form for general inquiries.</CardDescription> 
             </CardHeader>
             <CardContent>
@@ -294,10 +293,7 @@ export default function SinglePageApp() {
                   <Label htmlFor="ssp-email">Email Address</Label>
                   <Input id="ssp-email" type="email" placeholder="john.doe@example.com" required />
                 </div>
-                <div>
-                  <Label htmlFor="ssp-subject">Subject</Label>
-                  <Input id="ssp-subject" type="text" placeholder="General Question" />
-                </div>
+                {/* Removed Subject field */}
                 <div>
                   <Label htmlFor="ssp-message">Message</Label>
                   <Textarea id="ssp-message" placeholder="Your message here..." rows={5} required />
@@ -314,3 +310,4 @@ export default function SinglePageApp() {
     </div>
   );
 }
+

@@ -7,7 +7,7 @@ export default function EnquiryFormModal({ product, isOpen, onClose }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="rounded-lg sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>Enquire about: {product.name}</DialogTitle>
           <DialogDescription>
