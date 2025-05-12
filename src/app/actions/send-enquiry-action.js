@@ -5,10 +5,21 @@ import nodemailer from 'nodemailer';
 export async function sendProductEnquiry(enquiryData) {
   const { name, email, message, productName, productId } = enquiryData;
 
-  // Ensure environment variables are loaded.
-  if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
-    console.error('CRITICAL: Gmail credentials (GMAIL_USER or GMAIL_PASS) not found in environment variables. Email will not be sent.');
-    return { success: false, message: 'Server configuration error: Email credentials missing. Please contact support.' };
+  // Ensure environment variables are loaded and not empty.
+  if (
+    !process.env.GMAIL_USER ||
+    !process.env.GMAIL_PASS ||
+    process.env.GMAIL_USER.trim() === '' ||
+    process.env.GMAIL_PASS.trim() === ''
+  ) {
+    console.error(
+      'CRITICAL: Gmail credentials (GMAIL_USER or GMAIL_PASS) are missing or empty in environment variables. Email will not be sent.'
+    );
+    return {
+      success: false,
+      message:
+        'Server configuration error: Email credentials missing or empty. Please contact support.',
+    };
   }
 
   const transporter = nodemailer.createTransport({
