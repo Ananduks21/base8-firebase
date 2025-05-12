@@ -259,8 +259,8 @@ export default function SinglePageApp() {
                 <Mail className="w-6 h-6 text-primary mt-1 shrink-0" />
                 <div>
                   <h3 className="font-semibold">Email</h3>
-                  <a href="mailto:base8furnitures@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
-                    base8furnitures@gmail.com
+                  <a href="mailto:ananduks21@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                    ananduks21@gmail.com
                   </a>
                 </div>
               </div>
@@ -327,3 +327,4 @@ export default function SinglePageApp() {
     </div>
   );
 }
+
