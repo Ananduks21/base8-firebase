@@ -22,7 +22,7 @@ export async function sendProductEnquiry(enquiryData) {
   });
 
   const mailOptions = {
-    from: `"${name}" <${process.env.GMAIL_USER}>`, // Sender address (appears in "From" field)
+    from: `"Base8 Enquiries" <${process.env.GMAIL_USER}>`, // Using a static sender name
     replyTo: email, // User's email to allow direct reply
     to: 'ananduks21@gmail.com', // Admin email address
     subject: `Product Enquiry for: ${productName} (ID: ${productId})`,
