@@ -71,7 +71,14 @@ export async function sendProductEnquiry(enquiryData) {
     let clientMessage = 'Failed to send enquiry due to a server error. Please try again later or contact support.';
 
     if (error.code === 'EAUTH') {
-      console.error('Nodemailer Authentication Error: This often means incorrect GMAIL_USER/GMAIL_PASS, or Gmail security settings are blocking access (e.g., "Less Secure App Access" is OFF, or an "App Password" is required if 2FA is enabled).');
+      console.error(`Nodemailer Authentication Error (EAUTH):
+      This indicates a problem with the Gmail credentials or security settings.
+      Common causes and solutions:
+      1. Incorrect GMAIL_USER or GMAIL_PASS in your .env file. Double-check them.
+      2. If 2-Step Verification (2FA) is ENABLED for the Gmail account: You MUST use an "App Password" as GMAIL_PASS. Your regular Gmail password will NOT work. Generate an App Password here: https://myaccount.google.com/apppasswords
+      3. If 2-Step Verification is DISABLED: "Less Secure App Access" might need to be turned ON. This is NOT recommended for security. Enable 2FA and use an App Password instead. (Check: https://myaccount.google.com/lesssecureapps)
+      4. Ensure your GMAIL_USER is the full email address.
+      Error details: ${error.message}`);
       clientMessage = 'Authentication failed with the email server. Please ensure server email credentials and security settings are correct. Contact support if the issue persists.';
     } else if (error.code === 'ECONNREFUSED') {
       console.error('Nodemailer Connection Refused: The mail server actively refused the connection. Check mail server status and network configuration.');
