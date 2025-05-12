@@ -6,11 +6,9 @@ export async function sendProductEnquiry(enquiryData) {
   const { name, email, message, productName, productId } = enquiryData;
 
   // Ensure environment variables are loaded.
-  // If GMAIL_USER or GMAIL_PASS are not set, the email will fail.
-  // For production, ensure these are set in your deployment environment.
   if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
-    console.error('Gmail credentials not found in environment variables. Email will not be sent.');
-    return { success: false, message: 'Server configuration error. Could not send email.' };
+    console.error('CRITICAL: Gmail credentials (GMAIL_USER or GMAIL_PASS) not found in environment variables. Email will not be sent.');
+    return { success: false, message: 'Server configuration error: Email credentials missing. Please contact support.' };
   }
 
   const transporter = nodemailer.createTransport({
@@ -19,6 +17,10 @@ export async function sendProductEnquiry(enquiryData) {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_PASS, // For Gmail, this should be an App Password if 2FA is enabled
     },
+    // Adding timeout options for debugging connection issues
+    connectionTimeout: 10000, // 10 seconds
+    greetingTimeout: 10000, // 10 seconds
+    socketTimeout: 10000, // 10 seconds
   });
 
   const mailOptions = {
@@ -47,12 +49,31 @@ export async function sendProductEnquiry(enquiryData) {
   };
 
   try {
-    await transporter.sendMail(mailOptions);
-    console.log('Enquiry email sent successfully.');
+    console.log(`Attempting to send email to ${mailOptions.to} from ${mailOptions.from} regarding ${productName}`);
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Enquiry email sent successfully. Message ID:', info.messageId);
     return { success: true, message: 'Enquiry sent successfully.' };
   } catch (error) {
-    console.error('Error sending email:', error);
-    // Provide a more generic message to the user for security reasons
-    return { success: false, message: 'Failed to send enquiry due to a server error. Please try again later.' };
+    // Log extensive error details on the server for debugging
+    console.error('Failed to send email. Full error object:', JSON.stringify(error, Object.getOwnPropertyNames(error), 2));
+    
+    let clientMessage = 'Failed to send enquiry due to a server error. Please try again later or contact support.';
+
+    if (error.code === 'EAUTH') {
+      console.error('Nodemailer Authentication Error: This often means incorrect GMAIL_USER/GMAIL_PASS, or Gmail security settings are blocking access (e.g., "Less Secure App Access" is OFF, or an "App Password" is required if 2FA is enabled).');
+      clientMessage = 'Authentication failed with the email server. Please ensure server email credentials and security settings are correct. Contact support if the issue persists.';
+    } else if (error.code === 'ECONNREFUSED') {
+      console.error('Nodemailer Connection Refused: The mail server actively refused the connection. Check mail server status and network configuration.');
+      clientMessage = 'Could not connect to the email server. Please try again later or contact support.';
+    } else if (error.code === 'EENVELOPE') {
+      console.error('Nodemailer Envelope Error: There might be an issue with the sender or recipient email addresses.', { from: mailOptions.from, to: mailOptions.to });
+      clientMessage = 'There was an issue with the email recipient or sender address. Please contact support.';
+    } else if (error.code) { // Other Nodemailer specific errors
+      console.error(`Nodemailer Error Code: ${error.code}. Message: ${error.message}. Command: ${error.command}`);
+    } else { // Generic error
+      console.error(`Generic error during email sending: ${error.message}`);
+    }
+    
+    return { success: false, message: clientMessage };
   }
 }
