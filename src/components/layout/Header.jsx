@@ -6,10 +6,10 @@ import Logo from './Logo';
 import { Menu as MenuIcon, X } from 'lucide-react';
 
 const navItems = [
-  { href: '#home', label: 'Home' },
-  { href: '#products', label: 'Products' },
-  { href: '#about', label: 'About Us' },
-  { href: '#contact', label: 'Contact' },
+  { href: '/#home', label: 'Home' },
+  { href: '/products', label: 'Products' }, // Changed href to /products
+  { href: '/#about', label: 'About Us' },
+  { href: '/#contact', label: 'Contact' },
 ];
 
 export default function Header() {
@@ -27,6 +27,25 @@ export default function Header() {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Function to handle link clicks for smooth scrolling or navigation
+  const handleLinkClick = (e, href) => {
+    setIsMobileMenuOpen(false); // Close mobile menu on click
+
+    if (href.startsWith('/#')) { // Check if it's a hash link for the home page
+      const targetId = href.substring(2); // Get the ID part (e.g., 'about')
+      // Check if we are already on the home page
+      if (window.location.pathname === '/') {
+        e.preventDefault(); // Prevent default navigation
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      // If not on the home page, NextLink will navigate, and the hash will be handled by the browser.
+    }
+    // For non-hash links (like '/products'), NextLink handles navigation normally.
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -46,7 +65,7 @@ export default function Header() {
         </div>
         {/* Desktop Logo */}
         <div className="hidden md:block flex-shrink-0">
-          <Link href="#home" className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
+          <Link href="/#home" onClick={(e) => handleLinkClick(e, '/#home')} className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
             <Logo className="h-8 w-auto" />
           </Link>
         </div>
@@ -54,7 +73,7 @@ export default function Header() {
         {/* Element 2: Logo (Mobile Only, Centered) / Nav (Desktop Only, Centered) */}
         {/* Mobile Logo */}
         <div className="md:hidden flex-grow flex justify-center">
-          <Link href="#home" className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
+          <Link href="/#home" onClick={(e) => handleLinkClick(e, '/#home')} className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors">
             <Logo className="h-8 w-auto" />
           </Link>
         </div>
@@ -64,6 +83,7 @@ export default function Header() {
             <Link
               key={item.label}
               href={item.href}
+              onClick={(e) => handleLinkClick(e, item.href)}
               className="transition-colors hover:text-foreground/80 text-foreground/70"
             >
               {item.label}
@@ -93,10 +113,7 @@ export default function Header() {
                 key={item.label}
                 href={item.href}
                 className="block rounded-md px-3 py-2 text-base font-medium text-foreground/70 hover:bg-accent hover:text-accent-foreground transition-colors"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  // The global smooth scroll handler in page.jsx will manage scrolling.
-                }}
+                onClick={(e) => handleLinkClick(e, item.href)}
               >
                 {item.label}
               </Link>
