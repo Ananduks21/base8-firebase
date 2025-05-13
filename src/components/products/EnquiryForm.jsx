@@ -1,3 +1,4 @@
+
 'use client';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,10 +24,14 @@ export default function EnquiryForm({ product, onSuccess }) {
 
   const onSubmit = async (data) => {
     try {
+      // Access product name and ID from Strapi structure
+      const productName = product.attributes.ProductName;
+      const productId = product.id; // Strapi's top-level ID for the entry
+
       const result = await sendProductEnquiry({
         ...data,
-        productName: product.name,
-        productId: product.id,
+        productName: productName,
+        productId: productId,
       });
 
       if (result.success) {
