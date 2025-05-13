@@ -7,6 +7,12 @@ import { ArrowRight } from 'lucide-react';
 export default function ProductCard({ product, onViewDetails }) {
   const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_API_URL || 'http://localhost:1337';
   
+  // Guard clause to prevent errors if product or attributes are missing
+  if (!product || !product.attributes) {
+    console.warn("ProductCard received invalid product data:", product);
+    return null; // Or a placeholder/loading component
+  }
+
   const name = product.attributes.ProductName;
   const description = product.attributes.Description;
   const price = product.attributes.ProductPrice;
@@ -14,7 +20,7 @@ export default function ProductCard({ product, onViewDetails }) {
   const imageUrl = product.attributes.ProductImage?.data?.attributes?.url
     ? `${strapiUrl}${product.attributes.ProductImage.data.attributes.url}`
     : 'https://picsum.photos/seed/placeholder/600/400'; // Fallback image
-  const aiHint = product.attributes.aiHint || "product image"; // Assuming aiHint might still exist or you want a default
+  const aiHint = product.attributes.aiHint || "product image";
 
   return (
     <Card className="flex flex-col overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
@@ -39,7 +45,7 @@ export default function ProductCard({ product, onViewDetails }) {
           {description || 'No description available.'}
         </p>
         <p className="text-xl font-bold text-primary">
-          ${typeof price === 'number' ? price.toFixed(2) : 'N/A'}
+          {typeof price === 'number' ? `$${price.toFixed(2)}` : 'N/A'}
         </p>
       </CardContent>
       <CardFooter className="p-4 pt-0">
@@ -50,3 +56,4 @@ export default function ProductCard({ product, onViewDetails }) {
     </Card>
   );
 }
+
