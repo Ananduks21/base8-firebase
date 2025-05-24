@@ -1,10 +1,13 @@
+
 'use client';
 
 import { useState } from 'react';
 import ProductList from '@/components/products/ProductList';
 import ProductDetailModal from '@/components/products/ProductDetailModal';
+import { sampleProducts } from '@/lib/placeholder-data'; // Import sampleProducts
 
 export default function ProductsPage() {
+  // No need to fetch products, use sampleProducts directly
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,7 +27,8 @@ export default function ProductsPage() {
       <p className="text-xl text-muted-foreground text-center max-w-3xl mx-auto">
         Browse our curated selection of high-quality furniture and mattresses, designed for luxurious living.
       </p>
-      <ProductList onProductSelect={handleProductSelect} />
+      {/* Pass sampleProducts to ProductList */}
+      <ProductList products={sampleProducts} onProductSelect={handleProductSelect} />
 
       {selectedProduct && (
         <ProductDetailModal

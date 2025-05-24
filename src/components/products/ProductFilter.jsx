@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { productCategories } from '@/lib/placeholder-data';
+import { productCategories } from '@/lib/placeholder-data'; // Use placeholder categories
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -16,6 +16,8 @@ export default function ProductFilter({ onFilterChange, initialFilters }) {
   const [searchTerm, setSearchTerm] = useState(initialFilters.searchTerm);
   const [localMinPrice, setLocalMinPrice] = useState(initialFilters.priceRange[0].toString());
   const [localMaxPrice, setLocalMaxPrice] = useState(initialFilters.priceRange[1].toString());
+  
+  // productCategories is imported directly, no need to fetch
   
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -54,7 +56,7 @@ export default function ProductFilter({ onFilterChange, initialFilters }) {
 
   return (
     <div className="p-6">
-      <div className="space-y-8"> {/* Changed from grid to space-y for single column */}
+      <div className="space-y-8">
         <div>
           <Label htmlFor="category-select" className="mb-2 block text-sm font-medium">Category</Label>
           <Select value={category} onValueChange={setCategory}>

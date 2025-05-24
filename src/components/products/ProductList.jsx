@@ -4,13 +4,13 @@
 import React, { useState, useMemo } from 'react';
 import ProductCard from './ProductCard';
 import ProductFilter from './ProductFilter';
-import { sampleProducts } from '@/lib/placeholder-data'; 
+// Removed sampleProducts import as it's now passed as a prop
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Filter as FilterIcon } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export default function ProductList({ onProductSelect }) {
+export default function ProductList({ products, onProductSelect }) { // Added products prop
   const [filters, setFilters] = useState({
     category: 'All',
     priceRange: [0, 2000], 
@@ -22,7 +22,9 @@ export default function ProductList({ onProductSelect }) {
   };
 
   const filteredProducts = useMemo(() => {
-    return sampleProducts.filter(product => {
+    // Use the passed 'products' prop for filtering
+    if (!products) return [];
+    return products.filter(product => {
       const categoryMatch = filters.category === 'All' || product.category === filters.category;
       const priceMatch = product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1];
       const searchTermMatch = filters.searchTerm === '' ||
@@ -30,7 +32,7 @@ export default function ProductList({ onProductSelect }) {
         product.description.toLowerCase().includes(filters.searchTerm.toLowerCase());
       return categoryMatch && priceMatch && searchTermMatch;
     });
-  }, [filters]);
+  }, [filters, products]);
 
   return (
     <div>
@@ -46,6 +48,7 @@ export default function ProductList({ onProductSelect }) {
               <SheetTitle>Filter Products</SheetTitle>
             </SheetHeader>
             <ScrollArea className="flex-grow">
+              {/* Ensure ProductFilter uses placeholder categories if needed, or pass categories from products prop */}
               <ProductFilter onFilterChange={handleFilterChange} initialFilters={filters} />
             </ScrollArea>
           </SheetContent>

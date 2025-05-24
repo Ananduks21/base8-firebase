@@ -1,43 +1,56 @@
 
 'use server';
 
-import { createProductInStrapi } from '@/lib/strapi'; // We'll add this to strapi.js
+// Strapi import is removed as we are not using it.
+// import { createProductInStrapi } from '@/lib/strapi';
 
 export async function addProduct(productData) {
-  // In a real app, you'd validate permissions here, e.g., check an auth token/session
-  // For this demo, we assume if they reach this action, they are "authorized" by the client-side check.
+  // Since Strapi integration is removed, this function will now
+  // simulate the action or simply log the data.
+  // It will not persist the product to any backend.
 
-  try {
-    const newProduct = {
-      ProductName: productData.ProductName,
-      Description: productData.Description,
-      ProductPrice: parseFloat(productData.ProductPrice),
-      ProductImage: productData.ProductImage,
-      // Add any other default fields Strapi might require, e.g., category, publishedAt
-      // category: 'Default', // Example
-      // publishedAt: new Date().toISOString(), // Example to publish immediately
-    };
+  console.log('addProduct action called with data (Strapi integration removed):', productData);
 
-    const response = await createProductInStrapi(newProduct);
+  // Simulate an asynchronous operation if needed for consistent UI behavior (isSubmitting state)
+  await new Promise(resolve => setTimeout(resolve, 500));
 
-    if (response && response.data) {
-      return { success: true, data: response.data };
-    } else {
-      // Attempt to parse Strapi error if available
-      let errorMessage = 'Failed to add product to Strapi.';
-      if (response && response.error && response.error.message) {
-        errorMessage = `Strapi error: ${response.error.message}`;
-        if (response.error.details && response.error.details.errors) {
-            errorMessage += ` Details: ${response.error.details.errors.map(e => e.message).join(', ')}`;
-        }
-      } else if (typeof response === 'string') {
-        errorMessage = response;
-      }
-      console.error('Error from createProductInStrapi:', response);
-      return { success: false, message: errorMessage };
-    }
-  } catch (error) {
-    console.error('Server action addProduct error:', error);
-    return { success: false, message: error.message || 'An unexpected error occurred while adding the product.' };
-  }
+  // Return a success-like response for the UI, indicating the data was "processed" locally (logged).
+  return {
+    success: true,
+    message: 'Product data logged to console. Strapi integration is removed.',
+    data: { ...productData, id: `local-${Date.now()}` }, // Mock a local ID
+  };
+
+  // Original Strapi related code (commented out):
+  // try {
+  //   const newProduct = {
+  //     ProductName: productData.ProductName,
+  //     Description: productData.Description,
+  //     ProductPrice: parseFloat(productData.ProductPrice),
+  //     ProductImage: productData.ProductImage,
+  //     // Add any other fields if your placeholder data uses them
+  //     category: productData.category,
+  //     materials: productData.materials,
+  //     dimensions: productData.dimensions,
+  //     careInstructions: productData.careInstructions,
+  //     aiHint: productData.aiHint,
+  //   };
+
+  //   // This would call the Strapi API, which we are removing.
+  //   // const response = await createProductInStrapi(newProduct);
+
+  //   // if (response && response.data) {
+  //   //   return { success: true, data: response.data };
+  //   // } else {
+  //   //   let errorMessage = 'Failed to add product (Strapi interaction disabled).';
+  //   //   if (response && response.error && response.error.message) {
+  //   //     errorMessage = `Strapi error (disabled): ${response.error.message}`;
+  //   //   }
+  //   //   console.error('Error from createProductInStrapi (disabled):', response);
+  //   //   return { success: false, message: errorMessage };
+  //   // }
+  // } catch (error) {
+  //   console.error('Server action addProduct error (Strapi disabled):', error);
+  //   return { success: false, message: error.message || 'An unexpected error occurred while processing the product.' };
+  // }
 }
