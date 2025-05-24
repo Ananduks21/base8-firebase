@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Logo from './Logo';
-import { Menu as MenuIcon, X, KeyRound } from 'lucide-react'; // Added KeyRound
+import { Menu as MenuIcon, X } from 'lucide-react';
 
 const navItems = [
   { href: '/#home', label: 'Home' },
@@ -15,15 +15,17 @@ const navItems = [
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false);
+  // isAdminLoggedIn state is no longer needed in Header if link is removed
+  // const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(false); 
 
   useEffect(() => {
-    const checkAdminStatus = () => {
-      setIsAdminLoggedIn(localStorage.getItem('isAdminAuthenticated') === 'true');
-    };
+    // Check admin status is no longer needed here if link is removed
+    // const checkAdminStatus = () => {
+    //   setIsAdminLoggedIn(localStorage.getItem('isAdminAuthenticated') === 'true');
+    // };
     
-    checkAdminStatus(); // Check on mount
-    window.addEventListener('storage', checkAdminStatus); // Listen for storage changes (e.g. login/logout on another tab)
+    // checkAdminStatus(); 
+    // window.addEventListener('storage', checkAdminStatus); 
     
     const handleResize = () => {
       if (window.innerWidth >= 768) { // Tailwind's md breakpoint
@@ -32,11 +34,11 @@ export default function Header() {
     };
 
     window.addEventListener('resize', handleResize);
-    handleResize(); // Initial check
+    handleResize(); 
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('storage', checkAdminStatus);
+      // window.removeEventListener('storage', checkAdminStatus);
     };
   }, []);
 
@@ -52,7 +54,10 @@ export default function Header() {
           element.scrollIntoView({ behavior: 'smooth' });
         }
       }
+      // If not on homepage, NextLink will handle navigation to homepage and then attempt scroll
+      // This part of logic might need further refinement if direct anchor scrolling from other pages is problematic
     }
+    // For non-hash links, NextLink handles it directly.
   };
 
   return (
@@ -93,8 +98,8 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex-shrink-0 flex items-center">
-          {/* Admin Login/Panel Link */}
+        {/* Admin Login/Panel Link Removed */}
+        {/* <div className="flex-shrink-0 flex items-center">
           <Link
             href={isAdminLoggedIn ? "/admin/add-product" : "/admin/login"}
             className="p-2 text-foreground/70 hover:text-foreground transition-colors"
@@ -102,14 +107,15 @@ export default function Header() {
           >
             <KeyRound className="h-5 w-5" />
           </Link>
-          {/* Mobile Spacer - adjust if KeyRound icon changes overall balance */}
-          <div className="md:hidden w-6 sm:w-8"> {/* Adjusted spacer for icon */}
-            {/* This space ensures the mobile logo is truly centered relative to the hamburger icon & admin icon */}
+          <div className="md:hidden w-6 sm:w-8"> 
           </div>
-          {/* Desktop Spacer - adjust if KeyRound icon changes overall balance */}
-          <div className="hidden md:block w-[60px] sm:w-[70px]"> {/* Adjusted spacer for icon */}
-            {/* This space ensures the desktop navigation is truly centered relative to the logo & admin icon */}
+          <div className="hidden md:block w-[60px] sm:w-[70px]"> 
           </div>
+        </div> */}
+        {/* Spacers for visual balance if admin icon was present */}
+        <div className="md:hidden w-6 sm:w-8 flex-shrink-0"> {/* Ensure there's some space for hamburger alignment */}
+        </div>
+        <div className="hidden md:block w-[60px] sm:w-[70px] flex-shrink-0"> {/* Ensure there's some space for logo alignment */}
         </div>
       </div>
 
@@ -126,14 +132,14 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            {/* Admin link in mobile menu */}
-            <Link
+            {/* Admin link in mobile menu Removed */}
+            {/* <Link
               href={isAdminLoggedIn ? "/admin/add-product" : "/admin/login"}
               className="block rounded-md px-3 py-2 text-base font-medium text-foreground/70 hover:bg-accent hover:text-accent-foreground transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               {isAdminLoggedIn ? "Admin Panel" : "Admin Login"}
-            </Link>
+            </Link> */}
           </div>
         </nav>
       )}
