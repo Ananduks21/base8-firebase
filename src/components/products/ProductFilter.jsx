@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { productCategories } from '@/lib/placeholder-data'; // Use placeholder categories
+// Removed direct import of productCategories from placeholder-data
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,14 +10,15 @@ import { Slider } from "@/components/ui/slider";
 
 const MAX_PRICE = 2000; // Example max price
 
-export default function ProductFilter({ onFilterChange, initialFilters }) {
+export default function ProductFilter({ onFilterChange, initialFilters, availableCategories }) { // Added availableCategories prop
   const [category, setCategory] = useState(initialFilters.category);
   const [priceRange, setPriceRange] = useState(initialFilters.priceRange);
   const [searchTerm, setSearchTerm] = useState(initialFilters.searchTerm);
   const [localMinPrice, setLocalMinPrice] = useState(initialFilters.priceRange[0].toString());
   const [localMaxPrice, setLocalMaxPrice] = useState(initialFilters.priceRange[1].toString());
   
-  // productCategories is imported directly, no need to fetch
+  // Categories are now passed via props, no need to fetch or use placeholder directly here.
+  // The `availableCategories` prop should already include 'All' and other dynamic categories.
   
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -64,7 +65,7 @@ export default function ProductFilter({ onFilterChange, initialFilters }) {
               <SelectValue placeholder="Select category" />
             </SelectTrigger>
             <SelectContent>
-              {productCategories.map((cat) => (
+              {(availableCategories || ['All']).map((cat) => ( // Use availableCategories, fallback to ['All'] if undefined
                 <SelectItem key={cat} value={cat}>
                   {cat}
                 </SelectItem>

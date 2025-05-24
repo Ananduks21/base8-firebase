@@ -4,13 +4,12 @@
 import React, { useState, useMemo } from 'react';
 import ProductCard from './ProductCard';
 import ProductFilter from './ProductFilter';
-// Removed sampleProducts import as it's now passed as a prop
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Filter as FilterIcon } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export default function ProductList({ products, onProductSelect }) { // Added products prop
+export default function ProductList({ products, categories, onProductSelect }) { // Added categories prop
   const [filters, setFilters] = useState({
     category: 'All',
     priceRange: [0, 2000], 
@@ -22,7 +21,6 @@ export default function ProductList({ products, onProductSelect }) { // Added pr
   };
 
   const filteredProducts = useMemo(() => {
-    // Use the passed 'products' prop for filtering
     if (!products) return [];
     return products.filter(product => {
       const categoryMatch = filters.category === 'All' || product.category === filters.category;
@@ -48,8 +46,11 @@ export default function ProductList({ products, onProductSelect }) { // Added pr
               <SheetTitle>Filter Products</SheetTitle>
             </SheetHeader>
             <ScrollArea className="flex-grow">
-              {/* Ensure ProductFilter uses placeholder categories if needed, or pass categories from products prop */}
-              <ProductFilter onFilterChange={handleFilterChange} initialFilters={filters} />
+              <ProductFilter 
+                onFilterChange={handleFilterChange} 
+                initialFilters={filters}
+                availableCategories={categories} // Pass categories to ProductFilter
+              />
             </ScrollArea>
           </SheetContent>
         </Sheet>
