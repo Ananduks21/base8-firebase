@@ -18,9 +18,7 @@ const productSchema = z.object({
   ProductName: z.string().min(3, 'Product name must be at least 3 characters'),
   Description: z.string().min(10, 'Description must be at least 10 characters'),
   ProductPrice: z.coerce.number().min(0.01, 'Price must be a positive number'),
-  // ProductImage is now a simple string for URL, consistent with placeholder data
   ProductImage: z.string().url('Must be a valid URL for the product image'),
-  // Adding other fields from placeholder data for consistency, if desired for local "add"
   category: z.string().min(1, 'Category is required'),
   materials: z.string().optional(),
   dimensions: z.string().optional(),
@@ -48,36 +46,25 @@ export default function AddProductPage() {
   }, [router, toast]);
 
   const onSubmit = async (data) => {
-    // Since Strapi is removed, this will call a modified adminAction
-    // that doesn't actually save to Strapi.
-    // For now, we'll simulate success for UI feedback or show a message.
-    toast({
-        title: 'Product Submission',
-        description: 'Product data logged to console. Strapi integration is removed, so data is not saved to a backend.',
-        variant: 'default',
+    try {
+      const result = await addProduct(data); 
+      if (result.success) {
+        toast({
+          title: 'Product Added!',
+          description: `${data.ProductName} has been added to the list. (Changes are temporary)`,
+        });
+        reset(); 
+        router.refresh(); // Refresh server-side data for all routes
+      } else {
+        throw new Error(result.message || 'Failed to add product.');
+      }
+    } catch (error) {
+      toast({
+        title: 'Error Adding Product',
+        description: error.message || 'An unexpected error occurred.',
+        variant: 'destructive',
       });
-    console.log('Product data submitted (Strapi removed):', data);
-    reset();
-
-    // Original code calling adminAction:
-    // try {
-    //   const result = await addProduct(data); // This will call the modified action
-    //   if (result.success) {
-    //     toast({
-    //       title: 'Product Added (Locally)!',
-    //       description: `${data.ProductName} has been logged. (Strapi integration removed)`,
-    //     });
-    //     reset(); 
-    //   } else {
-    //     throw new Error(result.message || 'Failed to process product.');
-    //   }
-    // } catch (error) {
-    //   toast({
-    //     title: 'Error Processing Product',
-    //     description: error.message || 'An unexpected error occurred.',
-    //     variant: 'destructive',
-    //   });
-    // }
+    }
   };
   
   const handleLogout = () => {
@@ -91,10 +78,10 @@ export default function AddProductPage() {
       <Card className="max-w-2xl mx-auto shadow-lg">
         <CardHeader>
           <div className="flex justify-between items-center">
-            <CardTitle className="text-2xl font-bold">Add New Product (Local)</CardTitle>
+            <CardTitle className="text-2xl font-bold">Add New Product</CardTitle>
             <Button onClick={handleLogout} variant="outline" size="sm">Logout</Button>
           </div>
-          <CardDescription>Fill in the details below. (Note: Strapi integration removed, data will be logged to console).</CardDescription>
+          <CardDescription>Fill in the details below. Products will be added to the in-memory list.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -128,7 +115,6 @@ export default function AddProductPage() {
               {errors.category && <p className="text-sm text-destructive mt-1">{errors.category.message}</p>}
             </div>
 
-            {/* Optional fields, similar to placeholder data */}
             <div>
               <Label htmlFor="materials">Materials (Optional)</Label>
               <Input id="materials" {...register('materials')} className="mt-1" />
@@ -146,9 +132,8 @@ export default function AddProductPage() {
               <Input id="aiHint" {...register('aiHint')} className="mt-1" placeholder="e.g. sofa living_room" />
             </div>
 
-
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting ? 'Processing...' : 'Add Product (Log to Console)'}
+              {isSubmitting ? 'Adding...' : 'Add Product'}
             </Button>
           </form>
         </CardContent>

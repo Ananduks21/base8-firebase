@@ -1,5 +1,6 @@
 
-export const sampleProducts = [
+// Changed from const to let to allow modification
+let sampleProducts = [
   {
     id: '1',
     name: 'Cozy Comfort Sofa',
@@ -80,6 +81,9 @@ export const sampleProducts = [
   },
 ];
 
+// Export sampleProducts directly for use in components
+export { sampleProducts };
+
 export const getProductById = (id) => {
   return sampleProducts.find(product => product.id === id);
 };
@@ -90,3 +94,29 @@ export const getProductsByCategory = (category) => {
 };
 
 export const productCategories = ['All', ...new Set(sampleProducts.map(p => p.category))];
+
+// Function to add a new product to the in-memory sampleProducts array
+export function addProductToSampleData(productData) {
+  const newId = (sampleProducts.length + 1).toString(); // Simple ID generation
+  const newProduct = {
+    id: newId,
+    name: productData.name,
+    description: productData.description,
+    price: productData.price,
+    category: productData.category,
+    imageUrl: productData.imageUrl,
+    materials: productData.materials || '',
+    dimensions: productData.dimensions || '',
+    careInstructions: productData.careInstructions || '',
+    features: productData.features || [],
+    aiHint: productData.aiHint || '',
+  };
+  sampleProducts.push(newProduct);
+
+  // Update productCategories if the new product has a new category
+  if (!productCategories.includes(newProduct.category)) {
+    productCategories.push(newProduct.category);
+  }
+  
+  return newProduct;
+}
