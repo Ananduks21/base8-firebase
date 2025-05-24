@@ -51,7 +51,7 @@ export default function AddProductPage() {
       if (result.success) {
         toast({
           title: 'Product Added!',
-          description: `${data.ProductName} has been added to the list. (Changes are temporary)`,
+          description: `${data.ProductName} has been added to the list.`,
         });
         reset(); 
         router.refresh(); // Refresh server-side data for all routes
